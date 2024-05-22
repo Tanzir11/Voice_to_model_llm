@@ -14,16 +14,16 @@ import streamlit as st
 from langchain_community.tools import DuckDuckGoSearchRun
 load_dotenv()
 api_key = os.getenv("openai_api_key")
-os.environ["AZURE_OPENAI_ENDPOINT"] = "https://aryanopenai.openai.azure.com/openai/deployments/aryanTrial/chat/completions?api-version=2023-07-01-preview"
-os.environ["AZURE_OPENAI_API_KEY"] = "58a7766b439c43a7b82c4b7b610aeb77"
+os.environ["AZURE_OPENAI_ENDPOINT"] = ""
+os.environ["AZURE_OPENAI_API_KEY"] = ""
 
 client = OpenAI(api_key=api_key)
 
 search = DuckDuckGoSearchRun()
 
 llm = AzureChatOpenAI(
-    openai_api_version="2023-07-01-preview",
-    azure_deployment="aryanTrial",
+    openai_api_version="",
+    azure_deployment="",
 )
 
 # def get_answer(messages):
@@ -56,7 +56,7 @@ def get_answer(messages):
     retriever = new_db.as_retriever(search_kwargs={"k": 3})
     prompt = ChatPromptTemplate.from_template(prompts)
     model = ChatOpenAI(model="gpt-4", temperature=0)
-    # llm = AzureChatOpenAI(openai_api_version="2023-07-01-preview",azure_deployment="aryanTrial",)
+    # llm = AzureChatOpenAI(openai_api_version="",azure_deployment="",)
     # languages = language
     chain = (
         {"context": retriever, "question": RunnablePassthrough()}
